@@ -74,8 +74,8 @@ const MyForm = () => {
                   <MenuItem value="maintain-weight">
                     Maintenance / Improve Health
                   </MenuItem>
-                  <Tooltip title="Gain Weight">
-                    <MenuItem value="gain-weight">
+                  <Tooltip value="gain-weight" title="Gain Weight">
+                    <MenuItem>
                       Muscle Gain / Support Athletic Performance
                     </MenuItem>
                   </Tooltip>
