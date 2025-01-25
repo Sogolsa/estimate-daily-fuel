@@ -33,7 +33,6 @@ const MyForm = () => {
                 borderRadius: 2,
                 padding: 2,
                 mt: 2,
-                backgroundColor: "#fff",
                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
               }}
             >
