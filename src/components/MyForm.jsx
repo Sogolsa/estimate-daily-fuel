@@ -13,7 +13,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { estimateCalorieRange } from "../helpers/estimateCalorieRange";
+import { estimateCalorieRange } from "../helpers/calorieCalculator";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +22,7 @@ const MyForm = () => {
     activityType: "",
     currentWeight: "",
     sex: "",
+    level: "",
   });
 
   const [calorieRange, setCalorieRange] = useState(null);
@@ -153,6 +154,29 @@ const MyForm = () => {
                   </MenuItem>
                 </Select>
               </FormControl>
+              <FormControl fullWidth variant="filled" margin="dense">
+                <InputLabel id="level-label">Level</InputLabel>
+                <Select
+                  labelId="level-label"
+                  id="level"
+                  name="level"
+                  onChange={handleChange}
+                  value={formData.level}
+                >
+                  <MenuItem value="beginner">
+                    <ListItemText primary="Beginner" />
+                  </MenuItem>
+                  <MenuItem value="intermediate">
+                    <ListItemText primary="intermediate" />
+                  </MenuItem>
+                  <MenuItem value="advanced">
+                    <ListItemText
+                      primary="Advanced"
+                      secondary="Competition Level"
+                    />
+                  </MenuItem>
+                </Select>
+              </FormControl>
               <TextField
                 label="Current Weight in pounds"
                 id="currentWeight"
@@ -224,7 +248,9 @@ const MyForm = () => {
                 </Typography>
                 <Typography
                   variant="h4"
-                  sx={{ color: "white", textAlign: "center" }}
+                  sx={{
+                    textAlign: "center",
+                  }}
                 >
                   {calorieRange.lower} - {calorieRange.upper}
                 </Typography>

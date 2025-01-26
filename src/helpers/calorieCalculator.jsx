@@ -1,3 +1,4 @@
+// Calorie Calculations
 export const estimateCalorieRange = ({
   activityLevel,
   goal,
