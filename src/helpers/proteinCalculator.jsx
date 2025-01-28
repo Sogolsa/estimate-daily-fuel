@@ -11,13 +11,13 @@ export const calculateProtein = ({
       "lightly-active": {
         "fat-loss": {
           beginner: [0.6, 1],
-          intermediate: [1],
+          intermediate: 1,
           advanced: [1.1],
         },
         "maintain-weight": {
           beginner: [0.65, 0.9],
-          intermediate: [0.9],
-          advanced: [1],
+          intermediate: 0.9,
+          advanced: 1,
         },
         "gain-weight": {
           beginner: [0.8, 1.1],
@@ -29,13 +29,13 @@ export const calculateProtein = ({
       "moderately-active": {
         "fat-loss": {
           beginner: [0.7, 1.1],
-          intermediate: [1.1],
-          advanced: [1.2],
+          intermediate: 1.1,
+          advanced: 1.2,
         },
         "maintain-weight": {
           beginner: [0.75, 1],
-          intermediate: [1],
-          advanced: [1.1],
+          intermediate: 1,
+          advanced: 1.1,
         },
         "gain-weight": {
           beginner: [0.9, 1.2],
@@ -46,13 +46,13 @@ export const calculateProtein = ({
       "highly-active": {
         "fat-loss": {
           beginner: [0.8, 1.2],
-          intermediate: [1.2],
-          advanced: [1.35],
+          intermediate: 1.2,
+          advanced: 1.35,
         },
         "maintain-weight": {
           beginner: [0.85, 1.1],
-          intermediate: [1.1],
-          advanced: [1.2],
+          intermediate: 1.1,
+          advanced: 1.2,
         },
         "gain-weight": {
           beginner: [1.0, 1.3],
@@ -65,13 +65,13 @@ export const calculateProtein = ({
       "lightly-active": {
         "fat-loss": {
           beginner: [0.65, 1.05],
-          intermediate: [1.05],
-          advanced: [1.2],
+          intermediate: 1.05,
+          advanced: 1.2,
         },
         "maintain-weight": {
           beginner: [0.75, 1],
-          intermediate: [1],
-          advanced: [1.1],
+          intermediate: 1,
+          advanced: 1.1,
         },
         "gain-weight": {
           beginner: [0.85, 1.15],
@@ -83,13 +83,13 @@ export const calculateProtein = ({
       "moderately-active": {
         "fat-loss": {
           beginner: [0.8, 1.2],
-          intermediate: [1.2],
-          advanced: [1.35],
+          intermediate: 1.2,
+          advanced: 1.35,
         },
         "maintain-weight": {
           beginner: [0.85, 1.1],
-          intermediate: [1.1],
-          advanced: [1.2],
+          intermediate: 1.1,
+          advanced: 1.2,
         },
         "gain-weight": {
           beginner: [0.95, 1.25],
@@ -100,13 +100,13 @@ export const calculateProtein = ({
       "highly-active": {
         "fat-loss": {
           beginner: [0.95, 1.35],
-          intermediate: [1.35],
-          advanced: [1.5],
+          intermediate: 1.35,
+          advanced: 1.5,
         },
         "maintain-weight": {
           beginner: [0.95, 1.2],
-          intermediate: [1.2],
-          advanced: [1.35],
+          intermediate: 1.2,
+          advanced: 1.35,
         },
         "gain-weight": {
           beginner: [1.05, 1.35],
@@ -117,19 +117,25 @@ export const calculateProtein = ({
     },
   };
 
-  const proteinRange = proteinMultipliers[gender][activityLevel][goal][level];
+  // in case of undefined doesn't throw error
+  const proteinRange =
+    proteinMultipliers?.[gender]?.[activityLevel]?.[goal]?.[level];
 
   if (!proteinRange) {
-    throw new Error("Invalid activity level, goal, or experience level.");
+    throw new Error(
+      "Invalid activity level, goal, or experience level. Can't estimate protein."
+    );
   }
 
-  const minMultiplier =
-    proteinRange.length === 1 ? proteinRange[0] : proteinRange[0];
-  const maxMultiplier =
-    proteinRange.length === 1 ? proteinRange[0] : proteinRange[1];
-
-  const minProtein = (currentWeight * minMultiplier).toFixed(2);
-  const maxProtein = (currentWeight * maxMultiplier).toFixed(2);
-
-  return { minProtein, maxProtein };
+  // single number or array
+  if (Array.isArray(proteinRange)) {
+    return {
+      minProtein: (currentWeight * proteinRange[0]).toFixed(2),
+      maxProtein: (currentWeight * proteinRange[1]).toFixed(2),
+    };
+  } else {
+    return {
+      protein: (currentWeight * proteinRange).toFixed(2),
+    };
+  }
 };

@@ -299,7 +299,9 @@ const MyForm = () => {
                     textAlign: "center",
                   }}
                 >
-                  {proteinRange.minProtein} - {proteinRange.maxProtein}
+                  {proteinRange.minProtein && proteinRange.maxProtein
+                    ? `${proteinRange.minProtein} g - ${proteinRange.maxProtein} g`
+                    : `${proteinRange.protein} g`}
                 </Typography>
               </Box>
             )}
