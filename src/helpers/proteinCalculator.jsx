@@ -12,7 +12,7 @@ export const calculateProtein = ({
         "fat-loss": {
           beginner: [0.6, 1],
           intermediate: 1,
-          advanced: [1.1],
+          advanced: 1.1,
         },
         "maintain-weight": {
           beginner: [0.65, 0.9],

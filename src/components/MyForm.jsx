@@ -300,7 +300,7 @@ const MyForm = () => {
                   }}
                 >
                   {proteinRange.minProtein && proteinRange.maxProtein
-                    ? `${proteinRange.minProtein} g - ${proteinRange.maxProtein} g`
+                    ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
                     : `${proteinRange.protein} g`}
                 </Typography>
               </Box>
