@@ -14,6 +14,7 @@ import {
   Button,
 } from "@mui/material";
 import { estimateCalorieRange } from "../helpers/calorieCalculator";
+import { calculateProtein } from "../helpers/proteinCalculator";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -21,11 +22,12 @@ const MyForm = () => {
     goal: "",
     activityType: "",
     currentWeight: "",
-    sex: "",
+    gender: "",
     level: "",
   });
 
   const [calorieRange, setCalorieRange] = useState(null);
+  const [proteinRange, setProteinRange] = useState(null);
 
   const handleCalculate = () => {
     try {
@@ -35,6 +37,20 @@ const MyForm = () => {
         currentWeight: parseFloat(formData.currentWeight),
       });
       setCalorieRange(result);
+    } catch (err) {
+      console.log(err.message);
+      alert(err.message);
+    }
+
+    try {
+      const proteinResult = calculateProtein({
+        activityLevel: formData.activityLevel,
+        goal: formData.goal,
+        currentWeight: parseFloat(formData.currentWeight),
+        gender: formData.gender,
+        level: formData.level,
+      });
+      setProteinRange(proteinResult);
     } catch (err) {
       console.log(err.message);
       alert(err.message);
@@ -71,7 +87,7 @@ const MyForm = () => {
                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.6)",
               }}
             >
-              <FormControl fullWidth variant="filled" margin="dense">
+              <FormControl variant="standard" margin="dense">
                 <InputLabel id="activity-level-label">
                   Activity Level
                 </InputLabel>
@@ -102,7 +118,7 @@ const MyForm = () => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="filled" margin="dense">
+              <FormControl variant="standard" margin="dense">
                 <InputLabel id="goal-label">Goal</InputLabel>
                 <Select
                   labelId="goal-label"
@@ -124,7 +140,7 @@ const MyForm = () => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="filled" margin="dense">
+              <FormControl variant="standard" margin="dense">
                 <InputLabel id="activity-type-label">Activity Type</InputLabel>
                 <Select
                   labelId="activity-type-label"
@@ -154,7 +170,7 @@ const MyForm = () => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="filled" margin="dense">
+              <FormControl variant="standard" margin="dense">
                 <InputLabel id="level-label">Level</InputLabel>
                 <Select
                   labelId="level-label"
@@ -167,7 +183,7 @@ const MyForm = () => {
                     <ListItemText primary="Beginner" />
                   </MenuItem>
                   <MenuItem value="intermediate">
-                    <ListItemText primary="intermediate" />
+                    <ListItemText primary="Intermediate" />
                   </MenuItem>
                   <MenuItem value="advanced">
                     <ListItemText
@@ -182,19 +198,19 @@ const MyForm = () => {
                 id="currentWeight"
                 name="currentWeight"
                 type="number"
-                variant="filled"
+                variant="standard"
                 margin="dense"
                 value={formData.currentWeight}
                 onChange={handleChange}
                 fullWidth
               />
-              <FormControl fullWidth variant="filled" margin="dense">
-                <InputLabel id="sex-label">Sex</InputLabel>
+              <FormControl fullWidth variant="standard" margin="dense">
+                <InputLabel id="gender-label">Gender</InputLabel>
                 <Select
-                  labelId="sex-label"
-                  id="sex"
-                  name="sex"
-                  value={formData.sex}
+                  labelId="gender-label"
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
                   onChange={handleChange}
                 >
                   <MenuItem value="female">Female</MenuItem>
@@ -222,6 +238,7 @@ const MyForm = () => {
             md={6}
             sx={{
               display: "flex",
+              flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -253,6 +270,36 @@ const MyForm = () => {
                   }}
                 >
                   {calorieRange.lower} - {calorieRange.upper}
+                </Typography>
+              </Box>
+            )}
+            {proteinRange && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  mt: 2,
+                  p: 2,
+                  border: "1px solid #ccc",
+                  borderRadius: 2,
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  sx={{ color: "#fa4454", textAlign: "center" }}
+                >
+                  Estimated Protein:
+                </Typography>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  {proteinRange.minProtein} - {proteinRange.maxProtein}
                 </Typography>
               </Box>
             )}

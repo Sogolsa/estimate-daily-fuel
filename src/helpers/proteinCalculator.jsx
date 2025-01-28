@@ -1,5 +1,11 @@
 // Macro Calculations
-export const calculateProtein = ({ sex, activityLevel, goal, level }) => {
+export const calculateProtein = ({
+  gender,
+  activityLevel,
+  goal,
+  level,
+  currentWeight,
+}) => {
   const proteinMultipliers = {
     female: {
       "lightly-active": {
@@ -110,4 +116,20 @@ export const calculateProtein = ({ sex, activityLevel, goal, level }) => {
       },
     },
   };
+
+  const proteinRange = proteinMultipliers[gender][activityLevel][goal][level];
+
+  if (!proteinRange) {
+    throw new Error("Invalid activity level, goal, or experience level.");
+  }
+
+  const minMultiplier =
+    proteinRange.length === 1 ? proteinRange[0] : proteinRange[0];
+  const maxMultiplier =
+    proteinRange.length === 1 ? proteinRange[0] : proteinRange[1];
+
+  const minProtein = (currentWeight * minMultiplier).toFixed(2);
+  const maxProtein = (currentWeight * maxMultiplier).toFixed(2);
+
+  return { minProtein, maxProtein };
 };

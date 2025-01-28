@@ -19,14 +19,14 @@ function App() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
           backgroundColor: "background.default",
           color: "text.primary",
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h6" gutterBottom>
           {isDarkMode ? "Dark Mode" : "Light Mode"}
         </Typography>
         <Switch
