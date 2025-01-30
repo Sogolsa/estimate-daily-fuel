@@ -26,7 +26,7 @@ export const estimateCalorieRange = ({
     multipliers?.[activityLevel.toLowerCase()]?.[goal.toLowerCase()];
 
   if (!range) {
-    throw new Error("invalid activity level or goal. Can't estimate calories");
+    throw new Error("Invalid activity level or goal! Can't estimate calories!");
   }
 
   const lowerCalories = currentWeight * range[0];

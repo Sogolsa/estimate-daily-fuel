@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { estimateCalorieRange } from "../helpers/calorieCalculator";
 import { calculateProtein } from "../helpers/proteinCalculator";
+import { calculateFat } from "../helpers/fatCalculator";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ const MyForm = () => {
 
   const [calorieRange, setCalorieRange] = useState(null);
   const [proteinRange, setProteinRange] = useState(null);
+  const [fatRange, setFatRange] = useState(null);
 
   const handleCalculate = () => {
     try {
@@ -55,6 +57,17 @@ const MyForm = () => {
       console.log(err.message);
       alert(err.message);
     }
+
+    try {
+      const fatResult = calculateFat({
+        activityLevel: formData.activityLevel,
+        currentWeight: parseFloat(formData.currentWeight),
+      });
+      setFatRange(fatResult);
+    } catch (err) {
+      console.log(err.message);
+      alert(err.message);
+    }
   };
 
   const handleChange = (event) => {
@@ -73,7 +86,11 @@ const MyForm = () => {
           <Grid item xs={12} md={6}>
             <Typography
               variant="h4"
-              sx={{ textAlign: "center", justifyContent: "center" }}
+              sx={{
+                textAlign: "center",
+                justifyContent: "center",
+                fontSize: { xs: "1.2em", sm: "1.5", md: "2em" },
+              }}
             >
               Estimate your daily calories and macros here!
             </Typography>
@@ -204,7 +221,7 @@ const MyForm = () => {
                 onChange={handleChange}
                 fullWidth
               />
-              <FormControl fullWidth variant="standard" margin="dense">
+              <FormControl variant="standard" margin="dense">
                 <InputLabel id="gender-label">Gender</InputLabel>
                 <Select
                   labelId="gender-label"
@@ -291,18 +308,32 @@ const MyForm = () => {
                   variant="h5"
                   sx={{ color: "#fa4454", textAlign: "center" }}
                 >
-                  Estimated Protein:
+                  Estimated Protein and Fat:
                 </Typography>
                 <Typography
                   variant="h4"
                   sx={{
+                    fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
                     textAlign: "center",
                   }}
                 >
+                  Protein:<span> </span>
                   {proteinRange.minProtein && proteinRange.maxProtein
                     ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
                     : `${proteinRange.protein} g`}
                 </Typography>
+                {fatRange && fatRange.lower && fatRange.upper && (
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontSize: { xs: "1.5em", md: "2em" },
+                      textAlign: "center",
+                    }}
+                  >
+                    Fat:<span> </span>
+                    {fatRange.lower} - {fatRange.upper} g
+                  </Typography>
+                )}
               </Box>
             )}
           </Grid>
