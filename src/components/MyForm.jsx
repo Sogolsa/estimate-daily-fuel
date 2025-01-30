@@ -16,6 +16,7 @@ import {
 import { estimateCalorieRange } from "../helpers/calorieCalculator";
 import { calculateProtein } from "../helpers/proteinCalculator";
 import { calculateFat } from "../helpers/fatCalculator";
+import { calculateCarbohydrates } from "../helpers/CarbCalculator";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -30,8 +31,10 @@ const MyForm = () => {
   const [calorieRange, setCalorieRange] = useState(null);
   const [proteinRange, setProteinRange] = useState(null);
   const [fatRange, setFatRange] = useState(null);
+  const [carbRange, setCarbRange] = useState(null);
 
   const handleCalculate = () => {
+    // Calculate Calories
     try {
       const result = estimateCalorieRange({
         activityLevel: formData.activityLevel,
@@ -44,6 +47,7 @@ const MyForm = () => {
       alert(err.message);
     }
 
+    // Calculate Protein
     try {
       const proteinResult = calculateProtein({
         activityLevel: formData.activityLevel,
@@ -58,12 +62,27 @@ const MyForm = () => {
       alert(err.message);
     }
 
+    // calculate Fat
     try {
       const fatResult = calculateFat({
         activityLevel: formData.activityLevel,
         currentWeight: parseFloat(formData.currentWeight),
       });
       setFatRange(fatResult);
+    } catch (err) {
+      console.log(err.message);
+      alert(err.message);
+    }
+
+    // Calculate Carbs
+    try {
+      const carbResult = calculateCarbohydrates({
+        activityType: formData.activityType,
+        currentWeight: parseFloat(formData.currentWeight),
+        activityLevel: formData.activityLevel,
+        goal: formData.goal,
+      });
+      setCarbRange(carbResult);
     } catch (err) {
       console.log(err.message);
       alert(err.message);
@@ -322,11 +341,23 @@ const MyForm = () => {
                     ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
                     : `${proteinRange.protein} g`}
                 </Typography>
+                {carbRange && carbRange.lower && carbRange.upper && (
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
+                      textAlign: "center",
+                    }}
+                  >
+                    Carbohydrates: <span> </span>
+                    {carbRange.lower} - {carbRange.upper}
+                  </Typography>
+                )}
                 {fatRange && fatRange.lower && fatRange.upper && (
                   <Typography
                     variant="h4"
                     sx={{
-                      fontSize: { xs: "1.5em", md: "2em" },
+                      fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
                       textAlign: "center",
                     }}
                   >
