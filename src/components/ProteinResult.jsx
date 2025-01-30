@@ -20,6 +20,12 @@ const ProteinResult = ({ proteinRange }) => {
     >
       <Typography
         variant="h4"
+        sx={{ color: "#fa4454", textAlign: "center", mt: 4 }}
+      >
+        Estimated Macros:
+      </Typography>
+      <Typography
+        variant="h4"
         sx={{
           fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
           textAlign: "center",

@@ -8,12 +8,6 @@ import {
   Button,
 } from "@mui/material";
 
-// helper functions
-import { estimateCalorieRange } from "../helpers/calorieCalculator";
-import { calculateProtein } from "../helpers/proteinCalculator";
-import { calculateFat } from "../helpers/fatCalculator.jsx";
-import { calculateCarbohydrates } from "../helpers/CarbCalculator";
-
 // components
 import ActivityLevelSelect from "./ActivityLevelSelect";
 import GoalSelect from "./GoalSelect";
@@ -24,6 +18,7 @@ import CaloriesResult from "./CaloriesResult";
 import ProteinResult from "./ProteinResult";
 import CarbResult from "./CarbResult";
 import FatResult from "./FatResult";
+import CalculateButton from "./CalculateButton.jsx";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -39,62 +34,6 @@ const MyForm = () => {
   const [proteinRange, setProteinRange] = useState(null);
   const [fatRange, setFatRange] = useState(null);
   const [carbRange, setCarbRange] = useState(null);
-
-  const handleCalculate = () => {
-    // Calculate Calories
-    try {
-      const result = estimateCalorieRange({
-        activityLevel: formData.activityLevel,
-        goal: formData.goal,
-        currentWeight: parseFloat(formData.currentWeight),
-      });
-      setCalorieRange(result);
-    } catch (err) {
-      console.log(err.message);
-      alert(err.message);
-    }
-
-    // Calculate Protein
-    try {
-      const proteinResult = calculateProtein({
-        activityLevel: formData.activityLevel,
-        goal: formData.goal,
-        currentWeight: parseFloat(formData.currentWeight),
-        gender: formData.gender,
-        level: formData.level,
-      });
-      setProteinRange(proteinResult);
-    } catch (err) {
-      console.log(err.message);
-      alert(err.message);
-    }
-
-    // calculate Fat
-    try {
-      const fatResult = calculateFat({
-        activityLevel: formData.activityLevel,
-        currentWeight: parseFloat(formData.currentWeight),
-      });
-      setFatRange(fatResult);
-    } catch (err) {
-      console.log(err.message);
-      alert(err.message);
-    }
-
-    // Calculate Carbs
-    try {
-      const carbResult = calculateCarbohydrates({
-        activityType: formData.activityType,
-        currentWeight: parseFloat(formData.currentWeight),
-        activityLevel: formData.activityLevel,
-        goal: formData.goal,
-      });
-      setCarbRange(carbResult);
-    } catch (err) {
-      console.log(err.message);
-      alert(err.message);
-    }
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -140,7 +79,6 @@ const MyForm = () => {
                 onChange={handleChange}
               />
               <LevelSelect value={formData.level} onChange={handleChange} />
-
               <TextField
                 label="Current Weight in pounds"
                 id="currentWeight"
@@ -153,19 +91,13 @@ const MyForm = () => {
                 fullWidth
               />
               <GenderSelect value={formData.gender} onChange={handleChange} />
-              <Button
-                variant="contained"
-                onClick={handleCalculate}
-                sx={{
-                  mt: 2,
-                  padding: 1.5,
-                  backgroundColor: "#fa4454",
-                  color: "#fff",
-                  fontSize: "1em",
-                }}
-              >
-                Calculate
-              </Button>
+              <CalculateButton
+                setCalorieRange={setCalorieRange}
+                setProteinRange={setProteinRange}
+                setCarbRange={setCarbRange}
+                setFatRange={setFatRange}
+                formData={formData}
+              />
             </Box>
           </Grid>
           <Grid
@@ -180,12 +112,6 @@ const MyForm = () => {
             }}
           >
             <CaloriesResult calorieRange={calorieRange} />
-            <Typography
-              variant="h4"
-              sx={{ color: "#fa4454", textAlign: "center", mt: 4 }}
-            >
-              Estimated Macros:
-            </Typography>
             <ProteinResult proteinRange={proteinRange} />
             <CarbResult carbRange={carbRange} />
             <FatResult fatRange={fatRange} />
