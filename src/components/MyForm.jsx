@@ -4,12 +4,6 @@ import {
   Grid,
   Typography,
   Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  ListItemText,
-  Tooltip,
   TextField,
   Button,
 } from "@mui/material";
@@ -17,11 +11,19 @@ import {
 // helper functions
 import { estimateCalorieRange } from "../helpers/calorieCalculator";
 import { calculateProtein } from "../helpers/proteinCalculator";
-import { calculateFat } from "../helpers/fatCalculator";
+import { calculateFat } from "../helpers/fatCalculator.jsx";
 import { calculateCarbohydrates } from "../helpers/CarbCalculator";
 
 // components
 import ActivityLevelSelect from "./ActivityLevelSelect";
+import GoalSelect from "./GoalSelect";
+import ActivityTypeSelect from "./ActivityTypeSelect";
+import LevelSelect from "./LevelSelect";
+import GenderSelect from "./GenderSelect";
+import CaloriesResult from "./CaloriesResult";
+import ProteinResult from "./ProteinResult";
+import CarbResult from "./CarbResult";
+import FatResult from "./FatResult";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -132,81 +134,13 @@ const MyForm = () => {
                 value={formData.activityLevel}
                 onChange={handleChange}
               />
-              <FormControl variant="standard" margin="dense">
-                <InputLabel id="goal-label">Goal</InputLabel>
-                <Select
-                  labelId="goal-label"
-                  id="goal"
-                  name="goal"
-                  onChange={handleChange}
-                  value={formData.goal}
-                >
-                  <MenuItem value="fat-loss">
-                    Fat Loss/ Body Recomposition
-                  </MenuItem>
-                  <MenuItem value="maintain-weight">
-                    Maintenance / Improve Health
-                  </MenuItem>
-                  <MenuItem value="gain-weight">
-                    <Tooltip title="Gain Weight">
-                      <span>Muscle Gain / Support Athletic Performance</span>
-                    </Tooltip>
-                  </MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl variant="standard" margin="dense">
-                <InputLabel id="activity-type-label">Activity Type</InputLabel>
-                <Select
-                  labelId="activity-type-label"
-                  id="activityType"
-                  name="activityType"
-                  onChange={handleChange}
-                  value={formData.activityType}
-                >
-                  <MenuItem value="endurance">
-                    <ListItemText
-                      primary="Endurance"
-                      secondary="High-volume exercise (e.g., long-distance cycling or
-              running)"
-                    />
-                  </MenuItem>
-                  <MenuItem value="strength">
-                    <ListItemText
-                      primary="Strength"
-                      secondary="Bodybuilding, explosive power, and conditioning"
-                    />
-                  </MenuItem>
-                  <MenuItem value="absolute-strength">
-                    <ListItemText
-                      primary="Absolute Strength"
-                      secondary="e.g., Powerlifting"
-                    />
-                  </MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl variant="standard" margin="dense">
-                <InputLabel id="level-label">Level</InputLabel>
-                <Select
-                  labelId="level-label"
-                  id="level"
-                  name="level"
-                  onChange={handleChange}
-                  value={formData.level}
-                >
-                  <MenuItem value="beginner">
-                    <ListItemText primary="Beginner" />
-                  </MenuItem>
-                  <MenuItem value="intermediate">
-                    <ListItemText primary="Intermediate" />
-                  </MenuItem>
-                  <MenuItem value="advanced">
-                    <ListItemText
-                      primary="Advanced"
-                      secondary="Competition Level"
-                    />
-                  </MenuItem>
-                </Select>
-              </FormControl>
+              <GoalSelect value={formData.goal} onChange={handleChange} />
+              <ActivityTypeSelect
+                value={formData.activityType}
+                onChange={handleChange}
+              />
+              <LevelSelect value={formData.level} onChange={handleChange} />
+
               <TextField
                 label="Current Weight in pounds"
                 id="currentWeight"
@@ -218,19 +152,7 @@ const MyForm = () => {
                 onChange={handleChange}
                 fullWidth
               />
-              <FormControl variant="standard" margin="dense">
-                <InputLabel id="gender-label">Gender</InputLabel>
-                <Select
-                  labelId="gender-label"
-                  id="gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="female">Female</MenuItem>
-                  <MenuItem value="male">Male</MenuItem>
-                </Select>
-              </FormControl>
+              <GenderSelect value={formData.gender} onChange={handleChange} />
               <Button
                 variant="contained"
                 onClick={handleCalculate}
@@ -257,94 +179,16 @@ const MyForm = () => {
               alignItems: "center",
             }}
           >
-            {calorieRange && calorieRange.lower && calorieRange.upper && (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  mt: 2,
-                  p: 2,
-                  border: "1px solid #ccc",
-                  borderRadius: 2,
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{ color: "#fa4454", textAlign: "center" }}
-                >
-                  Estimated Calories:
-                </Typography>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    textAlign: "center",
-                  }}
-                >
-                  {calorieRange.lower} - {calorieRange.upper}
-                </Typography>
-              </Box>
-            )}
-            {proteinRange && (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  mt: 2,
-                  p: 2,
-                  border: "1px solid #ccc",
-                  borderRadius: 2,
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  sx={{ color: "#fa4454", textAlign: "center" }}
-                >
-                  Estimated Macros:
-                </Typography>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
-                    textAlign: "center",
-                  }}
-                >
-                  Protein:<span> </span>
-                  {proteinRange.minProtein && proteinRange.maxProtein
-                    ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
-                    : `${proteinRange.protein} g`}
-                </Typography>
-                {carbRange && carbRange.lower && carbRange.upper && (
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
-                      textAlign: "center",
-                    }}
-                  >
-                    Carbohydrates: <span> </span>
-                    {carbRange.lower} - {carbRange.upper} g
-                  </Typography>
-                )}
-                {fatRange && fatRange.lower && fatRange.upper && (
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      fontSize: { xs: "1.2em", sm: "1.5em", md: "2em" },
-                      textAlign: "center",
-                    }}
-                  >
-                    Fat:<span> </span>
-                    {fatRange.lower} - {fatRange.upper} g
-                  </Typography>
-                )}
-              </Box>
-            )}
+            <CaloriesResult calorieRange={calorieRange} />
+            <Typography
+              variant="h4"
+              sx={{ color: "#fa4454", textAlign: "center", mt: 4 }}
+            >
+              Estimated Macros:
+            </Typography>
+            <ProteinResult proteinRange={proteinRange} />
+            <CarbResult carbRange={carbRange} />
+            <FatResult fatRange={fatRange} />
           </Grid>
         </Grid>
       </form>
