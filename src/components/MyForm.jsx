@@ -13,10 +13,15 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+
+// helper functions
 import { estimateCalorieRange } from "../helpers/calorieCalculator";
 import { calculateProtein } from "../helpers/proteinCalculator";
 import { calculateFat } from "../helpers/fatCalculator";
 import { calculateCarbohydrates } from "../helpers/CarbCalculator";
+
+// components
+import ActivityLevelSelect from "./ActivityLevelSelect";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -123,37 +128,10 @@ const MyForm = () => {
                 boxShadow: "0 2px 10px rgba(0, 0, 0, 0.6)",
               }}
             >
-              <FormControl variant="standard" margin="dense">
-                <InputLabel id="activity-level-label">
-                  Activity Level
-                </InputLabel>
-                <Select
-                  labelId="activity-level-label"
-                  id="activityLevel"
-                  name="activityLevel"
-                  onChange={handleChange}
-                  value={formData.activityLevel}
-                >
-                  <MenuItem value="lightly-active">
-                    <ListItemText
-                      primary="Lightly Active"
-                      secondary="< 3 hrs /week"
-                    />
-                  </MenuItem>
-                  <MenuItem value="moderately-active">
-                    <ListItemText
-                      primary="Moderately Active"
-                      secondary="3-7 hrs/week"
-                    />
-                  </MenuItem>
-                  <MenuItem value="highly-active">
-                    <ListItemText
-                      primary="Highly Active"
-                      secondary="> 7 hrs/week"
-                    />
-                  </MenuItem>
-                </Select>
-              </FormControl>
+              <ActivityLevelSelect
+                value={formData.activityLevel}
+                onChange={handleChange}
+              />
               <FormControl variant="standard" margin="dense">
                 <InputLabel id="goal-label">Goal</InputLabel>
                 <Select
