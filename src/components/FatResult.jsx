@@ -19,6 +19,9 @@ const FatResult = ({ fatRange }) => {
         borderRadius: 2,
       }}
     >
+      <Typography variant="h5" sx={{ color: "#fa4454", textAlign: "center" }}>
+        Fat
+      </Typography>
       <Typography
         variant="h4"
         sx={{
@@ -26,7 +29,6 @@ const FatResult = ({ fatRange }) => {
           textAlign: "center",
         }}
       >
-        Fat:<span> </span>
         {fatRange.lower} - {fatRange.upper} g
       </Typography>
     </Box>

@@ -23,6 +23,9 @@ const CarbResult = ({ carbRange }) => {
         borderRadius: 2,
       }}
     >
+      <Typography variant="h5" sx={{ color: "#fa4454", textAlign: "center" }}>
+        Carbohydrates
+      </Typography>
       <Typography
         variant="h4"
         sx={{
@@ -30,7 +33,6 @@ const CarbResult = ({ carbRange }) => {
           textAlign: "center",
         }}
       >
-        Carbohydrates: <span> </span>
         {carbRange.lower} - {carbRange.upper} g
       </Typography>
     </Box>

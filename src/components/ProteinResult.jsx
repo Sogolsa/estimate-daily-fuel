@@ -12,17 +12,14 @@ const ProteinResult = ({ proteinRange }) => {
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        mt: 2,
+        // mt: 2,
         p: 2,
         border: "1px solid #ccc",
         borderRadius: 2,
       }}
     >
-      <Typography
-        variant="h4"
-        sx={{ color: "#fa4454", textAlign: "center", mt: 4 }}
-      >
-        Estimated Macros:
+      <Typography variant="h5" sx={{ color: "#fa4454", textAlign: "center" }}>
+        Protein
       </Typography>
       <Typography
         variant="h4"
@@ -31,7 +28,6 @@ const ProteinResult = ({ proteinRange }) => {
           textAlign: "center",
         }}
       >
-        Protein:<span> </span>
         {proteinRange.minProtein && proteinRange.maxProtein
           ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
           : `${proteinRange.protein} g`}

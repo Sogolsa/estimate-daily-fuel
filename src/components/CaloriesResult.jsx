@@ -19,7 +19,7 @@ const CaloriesResult = ({ calorieRange }) => {
       }}
     >
       <Typography variant="h5" sx={{ color: "#fa4454", textAlign: "center" }}>
-        Estimated Calories:
+        Estimated Calories
       </Typography>
       <Typography
         variant="h5"

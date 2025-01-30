@@ -14,11 +14,8 @@ import GoalSelect from "./GoalSelect";
 import ActivityTypeSelect from "./ActivityTypeSelect";
 import LevelSelect from "./LevelSelect";
 import GenderSelect from "./GenderSelect";
-import CaloriesResult from "./CaloriesResult";
-import ProteinResult from "./ProteinResult";
-import CarbResult from "./CarbResult";
-import FatResult from "./FatResult";
 import CalculateButton from "./CalculateButton.jsx";
+import Results from "./Results.jsx";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -100,22 +97,12 @@ const MyForm = () => {
               />
             </Box>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <CaloriesResult calorieRange={calorieRange} />
-            <ProteinResult proteinRange={proteinRange} />
-            <CarbResult carbRange={carbRange} />
-            <FatResult fatRange={fatRange} />
-          </Grid>
+          <Results
+            calorieRange={calorieRange}
+            proteinRange={proteinRange}
+            carbRange={carbRange}
+            fatRange={fatRange}
+          />
         </Grid>
       </form>
     </Container>
