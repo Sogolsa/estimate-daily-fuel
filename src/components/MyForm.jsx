@@ -300,7 +300,7 @@ const MyForm = () => {
                   Estimated Calories:
                 </Typography>
                 <Typography
-                  variant="h4"
+                  variant="h5"
                   sx={{
                     textAlign: "center",
                   }}
@@ -324,10 +324,10 @@ const MyForm = () => {
                 }}
               >
                 <Typography
-                  variant="h5"
+                  variant="h4"
                   sx={{ color: "#fa4454", textAlign: "center" }}
                 >
-                  Estimated Protein and Fat:
+                  Estimated Macros:
                 </Typography>
                 <Typography
                   variant="h4"
@@ -350,7 +350,7 @@ const MyForm = () => {
                     }}
                   >
                     Carbohydrates: <span> </span>
-                    {carbRange.lower} - {carbRange.upper}
+                    {carbRange.lower} - {carbRange.upper} g
                   </Typography>
                 )}
                 {fatRange && fatRange.lower && fatRange.upper && (
