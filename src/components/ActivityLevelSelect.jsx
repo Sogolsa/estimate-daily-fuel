@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-const ActivityLevelSelect = ({ value, onChange }) => {
+const ActivityLevelSelect = ({ value, onChange, errors }) => {
   return (
     <FormControl variant="standard" margin="dense">
       <InputLabel id="activity-level-label">Activity Level</InputLabel>

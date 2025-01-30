@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Grid,
-  Typography,
-  Box,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Container, Grid, Typography, Box, TextField } from "@mui/material";
 
 // components
 import ActivityLevelSelect from "./ActivityLevelSelect";
@@ -26,7 +19,6 @@ const MyForm = () => {
     gender: "",
     level: "",
   });
-
   const [calorieRange, setCalorieRange] = useState(null);
   const [proteinRange, setProteinRange] = useState(null);
   const [fatRange, setFatRange] = useState(null);

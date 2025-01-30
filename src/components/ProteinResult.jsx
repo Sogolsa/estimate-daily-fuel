@@ -18,7 +18,14 @@ const ProteinResult = ({ proteinRange }) => {
         borderRadius: 2,
       }}
     >
-      <Typography variant="h5" sx={{ color: "#fa4454", textAlign: "center" }}>
+      <Typography
+        variant="h5"
+        sx={{
+          color: "#fa4454",
+          textAlign: "center",
+          fontSize: { xs: "1.2em", sm: "1.3em", md: "1.8em" },
+        }}
+      >
         Protein
       </Typography>
       <Typography

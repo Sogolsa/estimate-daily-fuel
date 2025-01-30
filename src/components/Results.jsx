@@ -53,7 +53,12 @@ const Results = ({ calorieRange, proteinRange, carbRange, fatRange }) => {
           <CaloriesResult calorieRange={calorieRange} />
           <Typography
             variant="h5"
-            sx={{ color: "#fa4454", textAlign: "center", mt: 6 }}
+            sx={{
+              color: "#fa4454",
+              textAlign: "center",
+              mt: 6,
+              fontSize: { xs: "1.2em", sm: "1.3em", md: "1.8em" },
+            }}
           >
             Estimated Macros
           </Typography>
