@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 const ProteinResult = ({ proteinRange }) => {
   if (!proteinRange) return null;
 
-  // const { minProtein, maxProtein, protein, method } = proteinRange;
+  const { minProtein, maxProtein, protein, method } = proteinRange;
 
   return (
     <Box
@@ -37,12 +37,9 @@ const ProteinResult = ({ proteinRange }) => {
           textAlign: "center",
         }}
       >
-        {proteinRange.minProtein && proteinRange.maxProtein
-          ? `${proteinRange.minProtein} - ${proteinRange.maxProtein} g`
-          : `${proteinRange.protein} g`}
-        {/* {minProtein && maxProtein
+        {minProtein && maxProtein
           ? `${minProtein} - ${maxProtein} g`
-          : `${protein} g`} */}
+          : `${protein} g`}
       </Typography>
       <Typography
         variant="body2"
@@ -53,12 +50,9 @@ const ProteinResult = ({ proteinRange }) => {
           mt: 1,
         }}
       >
-        {proteinRange.method === "calorie-based"
+        {method === "calorie-based"
           ? "(Based on calories, gender not selected)"
-          : "(Based on gender & activity level)"}
-        {/* {method === "calorie-based"
-          ? "(Based on calories, gender not selected)"
-          : "(Based on gender & activity level)"} */}
+          : "(Based on gender, activity level, goal and level)"}
       </Typography>
     </Box>
   );
