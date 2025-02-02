@@ -4,12 +4,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormHelperText,
+  // FormHelperText,
 } from "@mui/material";
 
-const GenderSelect = ({ value, onChange, error }) => {
+const GenderSelect = ({ value, onChange }) => {
   return (
-    <FormControl error={Boolean(error)} variant="standard" margin="dense">
+    <FormControl variant="standard" margin="dense">
       <InputLabel id="gender-label">Gender</InputLabel>
       <Select
         labelId="gender-label"
@@ -21,11 +21,11 @@ const GenderSelect = ({ value, onChange, error }) => {
         <MenuItem value="female">Female</MenuItem>
         <MenuItem value="male">Male</MenuItem>
       </Select>
-      {error && (
+      {/* {error && (
         <FormHelperText>
           This field is required for calculating Protein!
         </FormHelperText>
-      )}
+      )} */}
     </FormControl>
   );
 };

@@ -9,37 +9,41 @@ export const calculateProtein = ({
   currentWeight,
   activityType,
 }) => {
-  // if (!gender) {
-  //   const { lower: lowerCalories, upper: upperCalories } = estimateCalorieRange(
-  //     {
-  //       activityLevel,
-  //       goal,
-  //       currentWeight,
-  //     }
-  //   );
+  if (!gender) {
+    const { lower: lowerCalories, upper: upperCalories } = estimateCalorieRange(
+      {
+        activityLevel,
+        goal,
+        currentWeight,
+      }
+    );
 
-  //   const proteinPercentages = {
-  //     endurance: 0.2,
-  //     strength: 0.3,
-  //     "absolute-strength": 0.35,
-  //   };
-  //   const proteinFromCalories =
-  //     proteinPercentages?.[activityType?.toLowerCase()];
-  //   console.log("protein", proteinFromCalories);
+    const proteinPercentages = {
+      endurance: 0.2,
+      strength: 0.3,
+      "absolute-strength": 0.35,
+    };
+    const proteinFromCalories =
+      proteinPercentages?.[activityType?.toLowerCase()];
+    console.log("protein", proteinFromCalories);
 
-  //   const lowerProteinCalories = (lowerCalories * proteinFromCalories).toFixed(
-  //     2
-  //   );
-  //   const upperProteinCalories = (upperCalories * proteinFromCalories).toFixed(
-  //     2
-  //   );
+    const lowerProteinCalories = (lowerCalories * proteinFromCalories).toFixed(
+      2
+    );
+    const upperProteinCalories = (upperCalories * proteinFromCalories).toFixed(
+      2
+    );
 
-  //   // convert calories to grams
-  //   const lowerProteins = lowerProteinCalories / 4;
-  //   const upperProteins = upperProteinCalories / 4;
+    // convert calories to grams
+    const lowerProteins = (lowerProteinCalories / 4).toFixed(2);
+    const upperProteins = (upperProteinCalories / 4).toFixed(2);
 
-  //   return { lower: lowerProteins, upper: upperProteins };
-  // }
+    return {
+      minProtein: lowerProteins,
+      maxProtein: upperProteins,
+      method: "calorie-based",
+    };
+  }
 
   const proteinMultipliers = {
     female: {
@@ -167,10 +171,12 @@ export const calculateProtein = ({
     return {
       minProtein: (currentWeight * proteinRange[0]).toFixed(2),
       maxProtein: (currentWeight * proteinRange[1]).toFixed(2),
+      method: "gender-based",
     };
   } else {
     return {
       protein: (currentWeight * proteinRange).toFixed(2),
+      method: "gender-based",
     };
   }
 };

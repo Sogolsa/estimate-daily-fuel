@@ -63,7 +63,7 @@ const MyForm = () => {
     let isValid = true;
 
     Object.keys(formData).forEach((key) => {
-      // if (key === "gender") return;
+      if (key === "gender") return;
       if (!formData[key]) {
         newErrors[key] = true;
         isValid = false;
@@ -71,7 +71,7 @@ const MyForm = () => {
         newErrors[key] = false;
       }
     });
-    // newErrors["gender"] = false;
+    newErrors["gender"] = false;
 
     setFormDataErrors(newErrors);
 
@@ -149,7 +149,7 @@ const MyForm = () => {
               <GenderSelect
                 value={formData.gender}
                 onChange={handleChange}
-                error={!!formDataErrors.gender}
+                // error={!!formDataErrors.gender}
               />
 
               <CalculateButton

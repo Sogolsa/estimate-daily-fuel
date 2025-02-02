@@ -9,8 +9,10 @@ import FatResult from "./FatResult";
 const Results = ({ calorieRange, proteinRange, carbRange, fatRange }) => {
   const showMacros =
     (proteinRange && (proteinRange.protein || proteinRange.minProtein)) ||
-    (carbRange && carbRange.lower !== undefined) ||
-    (fatRange && fatRange.lower !== undefined);
+    (carbRange &&
+      (carbRange.lower !== undefined || carbRange.upper !== undefined)) ||
+    (fatRange &&
+      (fatRange.lower !== undefined || fatRange.upper !== undefined));
 
   if (!showMacros) return null; // If Macros are not available don't render the component
 
