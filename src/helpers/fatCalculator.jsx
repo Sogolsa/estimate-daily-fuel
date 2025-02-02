@@ -7,9 +7,9 @@ export const calculateFat = ({ activityLevel, currentWeight }) => {
 
   const fatRange = fatMultipliers?.[activityLevel];
 
-  if (!fatRange) {
-    throw new Error("Invalid activityLevel! Can't estimate fat!");
-  }
+  // if (!fatRange) {
+  //   throw new Error("Invalid activityLevel! Can't estimate fat!");
+  // }
 
   const lowerFat = (currentWeight * fatRange[0]).toFixed(2);
   const upperFat = (currentWeight * fatRange[1]).toFixed(2);

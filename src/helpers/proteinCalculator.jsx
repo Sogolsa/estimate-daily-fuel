@@ -1,3 +1,5 @@
+import { estimateCalorieRange } from "./calorieCalculator";
+
 // Macro Calculations
 export const calculateProtein = ({
   gender,
@@ -5,7 +7,40 @@ export const calculateProtein = ({
   goal,
   level,
   currentWeight,
+  activityType,
 }) => {
+  // if (!gender) {
+  //   const { lower: lowerCalories, upper: upperCalories } = estimateCalorieRange(
+  //     {
+  //       activityLevel,
+  //       goal,
+  //       currentWeight,
+  //     }
+  //   );
+
+  //   const proteinPercentages = {
+  //     endurance: 0.2,
+  //     strength: 0.3,
+  //     "absolute-strength": 0.35,
+  //   };
+  //   const proteinFromCalories =
+  //     proteinPercentages?.[activityType?.toLowerCase()];
+  //   console.log("protein", proteinFromCalories);
+
+  //   const lowerProteinCalories = (lowerCalories * proteinFromCalories).toFixed(
+  //     2
+  //   );
+  //   const upperProteinCalories = (upperCalories * proteinFromCalories).toFixed(
+  //     2
+  //   );
+
+  //   // convert calories to grams
+  //   const lowerProteins = lowerProteinCalories / 4;
+  //   const upperProteins = upperProteinCalories / 4;
+
+  //   return { lower: lowerProteins, upper: upperProteins };
+  // }
+
   const proteinMultipliers = {
     female: {
       "lightly-active": {
@@ -121,11 +156,11 @@ export const calculateProtein = ({
   const proteinRange =
     proteinMultipliers?.[gender]?.[activityLevel]?.[goal]?.[level];
 
-  if (!proteinRange) {
-    throw new Error(
-      "Invalid activity level, goal, or experience level. Can't estimate protein."
-    );
-  }
+  // if (!proteinRange) {
+  //   throw new Error(
+  //     "Invalid activity level, goal, gender or experience level. Can't estimate protein."
+  //   );
+  // }
 
   // single number or array
   if (Array.isArray(proteinRange)) {

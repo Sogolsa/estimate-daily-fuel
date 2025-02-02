@@ -21,9 +21,9 @@ export const calculateCarbohydrates = ({
   const carbPercentage = carbPercentages?.[activityType.toLowerCase()];
   console.log("carbs", carbPercentage);
 
-  if (!carbPercentage) {
-    throw new Error("Invalid Activity Type! Can't calculate carbs!");
-  }
+  // if (!carbPercentage) {
+  //   throw new Error("Invalid Activity Type! Can't calculate carbs!");
+  // }
 
   // Calculate carb calories (in strings)
   const lowerCarbCalories = (lowerCalories * carbPercentage).toFixed(2);

@@ -5,11 +5,12 @@ import {
   Select,
   MenuItem,
   ListItemText,
+  FormHelperText,
 } from "@mui/material";
 
-const LevelSelect = ({ value, onChange }) => {
+const LevelSelect = ({ value, onChange, error }) => {
   return (
-    <FormControl variant="standard" margin="dense">
+    <FormControl error={Boolean(error)} variant="standard" margin="dense">
       <InputLabel id="level-label">Level</InputLabel>
       <Select
         labelId="level-label"
@@ -28,6 +29,11 @@ const LevelSelect = ({ value, onChange }) => {
           <ListItemText primary="Advanced" secondary="Competition Level" />
         </MenuItem>
       </Select>
+      {error && (
+        <FormHelperText>
+          This field is required for calculating protein!
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

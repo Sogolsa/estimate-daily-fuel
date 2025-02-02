@@ -5,11 +5,12 @@ import {
   Select,
   MenuItem,
   Tooltip,
+  FormHelperText,
 } from "@mui/material";
 
-const GoalSelect = ({ value, onChange }) => {
+const GoalSelect = ({ value, onChange, error }) => {
   return (
-    <FormControl variant="standard" margin="dense">
+    <FormControl error={Boolean(error)} variant="standard" margin="dense">
       <InputLabel id="goal-label">Goal</InputLabel>
       <Select
         labelId="goal-label"
@@ -28,6 +29,11 @@ const GoalSelect = ({ value, onChange }) => {
           </Tooltip>
         </MenuItem>
       </Select>
+      {error && (
+        <FormHelperText>
+          This field is required to calculate calories!
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

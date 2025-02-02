@@ -5,11 +5,12 @@ import {
   Select,
   MenuItem,
   ListItemText,
+  FormHelperText,
 } from "@mui/material";
 
-const ActivityTypeSelect = ({ value, onChange }) => {
+const ActivityTypeSelect = ({ value, onChange, error }) => {
   return (
-    <FormControl variant="standard" margin="dense">
+    <FormControl error={Boolean(error)} variant="standard" margin="dense">
       <InputLabel id="activity-type-label">Activity Type</InputLabel>
       <Select
         labelId="activity-type-label"
@@ -38,6 +39,11 @@ const ActivityTypeSelect = ({ value, onChange }) => {
           />
         </MenuItem>
       </Select>
+      {error && (
+        <FormHelperText>
+          This field is required for calculating carbs!
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

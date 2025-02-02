@@ -5,11 +5,12 @@ import {
   Select,
   MenuItem,
   ListItemText,
+  FormHelperText,
 } from "@mui/material";
 
-const ActivityLevelSelect = ({ value, onChange, errors }) => {
+const ActivityLevelSelect = ({ value, onChange, error }) => {
   return (
-    <FormControl variant="standard" margin="dense">
+    <FormControl error={Boolean(error)} variant="standard" margin="dense">
       <InputLabel id="activity-level-label">Activity Level</InputLabel>
       <Select
         labelId="activity-level-label"
@@ -28,6 +29,11 @@ const ActivityLevelSelect = ({ value, onChange, errors }) => {
           <ListItemText primary="Highly Active" secondary="> 7 hrs/week" />
         </MenuItem>
       </Select>
+      {error && (
+        <FormHelperText>
+          This field is required for calculating calories and macros!
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

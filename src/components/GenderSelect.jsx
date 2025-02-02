@@ -1,9 +1,15 @@
 import React from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from "@mui/material";
 
-const GenderSelect = ({ value, onChange }) => {
+const GenderSelect = ({ value, onChange, error }) => {
   return (
-    <FormControl variant="standard" margin="dense">
+    <FormControl error={Boolean(error)} variant="standard" margin="dense">
       <InputLabel id="gender-label">Gender</InputLabel>
       <Select
         labelId="gender-label"
@@ -15,6 +21,11 @@ const GenderSelect = ({ value, onChange }) => {
         <MenuItem value="female">Female</MenuItem>
         <MenuItem value="male">Male</MenuItem>
       </Select>
+      {error && (
+        <FormHelperText>
+          This field is required for calculating Protein!
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

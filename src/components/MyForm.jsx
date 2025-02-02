@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Container, Grid, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  TextField,
+  FormHelperText,
+} from "@mui/material";
 
 // components
 import ActivityLevelSelect from "./ActivityLevelSelect";
@@ -19,18 +26,61 @@ const MyForm = () => {
     gender: "",
     level: "",
   });
+
   const [calorieRange, setCalorieRange] = useState(null);
   const [proteinRange, setProteinRange] = useState(null);
   const [fatRange, setFatRange] = useState(null);
   const [carbRange, setCarbRange] = useState(null);
 
+  const [formDataErrors, setFormDataErrors] = useState({
+    activityLevel: false,
+    goal: false,
+    activityType: false,
+    currentWeight: false,
+    gender: false,
+    level: false,
+  });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    // setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setFormDataErrors((prev) => ({
+      ...prev,
+      [name]: value === "" || value === null,
+      // [name]: name === "gender" ? false : value === "" || value === null,
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    let newErrors = {};
+    let isValid = true;
+
+    Object.keys(formData).forEach((key) => {
+      // if (key === "gender") return;
+      if (!formData[key]) {
+        newErrors[key] = true;
+        isValid = false;
+      } else {
+        newErrors[key] = false;
+      }
+    });
+    // newErrors["gender"] = false;
+
+    setFormDataErrors(newErrors);
+
+    if (!isValid) {
+      console.log("Form has errors, please fill all fields");
+      return;
+    }
+
+    console.log("Form is valid, proceed with calculation");
   };
 
   return (
@@ -61,13 +111,27 @@ const MyForm = () => {
               <ActivityLevelSelect
                 value={formData.activityLevel}
                 onChange={handleChange}
+                error={!!formDataErrors.activityLevel}
               />
-              <GoalSelect value={formData.goal} onChange={handleChange} />
+
+              <GoalSelect
+                value={formData.goal}
+                onChange={handleChange}
+                error={!!formDataErrors.goal}
+              />
+
               <ActivityTypeSelect
                 value={formData.activityType}
                 onChange={handleChange}
+                error={!!formDataErrors.activityType}
               />
-              <LevelSelect value={formData.level} onChange={handleChange} />
+
+              <LevelSelect
+                value={formData.level}
+                onChange={handleChange}
+                error={!!formDataErrors.level}
+              />
+
               <TextField
                 label="Current Weight in pounds"
                 id="currentWeight"
@@ -75,11 +139,19 @@ const MyForm = () => {
                 type="number"
                 variant="standard"
                 margin="dense"
+                required
                 value={formData.currentWeight}
                 onChange={handleChange}
                 fullWidth
+                error={!!formDataErrors.currentWeight}
               />
-              <GenderSelect value={formData.gender} onChange={handleChange} />
+
+              <GenderSelect
+                value={formData.gender}
+                onChange={handleChange}
+                error={!!formDataErrors.gender}
+              />
+
               <CalculateButton
                 setCalorieRange={setCalorieRange}
                 setProteinRange={setProteinRange}
