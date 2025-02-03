@@ -17,19 +17,35 @@ export default defineConfig({
         start_url: "/",
         icons: [
           {
-            src: "/icons/icon-192x192.png",
+            src: "/icons/logo1-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "icons/icon-512x512.png",
+            src: "/icons/logo1-512x512.png",
             sizes: "512x512",
             type: "image/png",
           },
         ],
+        screenshots: [
+          {
+            src: "/screenshots/screenshot-wide.png",
+            sizes: "1280x720",
+            type: "image/png",
+          },
+          {
+            src: "/screenshots/screenshot-mobile.png",
+            sizes: "750x1334",
+            type: "image/png",
+          },
+        ],
       },
+      description:
+        "Estimate your daily calorie and macro intake based on your goals and activity level.",
+      categories: ["health", "fitness", "nutrition"],
       workbox: {
-        globPatterns: ["**/*.{js, css, html,png, svg, ico}"],
+        globPatterns: ["**/*.{js,css,html,png,svg,ico,json,webp,jpg,jpeg}"],
+        navigateFallback: "index.html",
       },
     }),
   ],
