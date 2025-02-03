@@ -51,8 +51,8 @@ const ProteinResult = ({ proteinRange }) => {
         }}
       >
         {method === "calorie-based"
-          ? "(Based on calories, gender not selected)"
-          : "(Based on gender, activity level, goal and level)"}
+          ? "(Based on calories, gender not selected.)"
+          : "(Based on gender, activity level, goal and level.)"}
       </Typography>
     </Box>
   );

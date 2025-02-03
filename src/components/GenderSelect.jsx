@@ -20,6 +20,7 @@ const GenderSelect = ({ value, onChange }) => {
       >
         <MenuItem value="female">Female</MenuItem>
         <MenuItem value="male">Male</MenuItem>
+        <MenuItem>Estimate protein based on calories, not gender</MenuItem>
       </Select>
       {/* {error && (
         <FormHelperText>
