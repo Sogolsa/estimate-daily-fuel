@@ -5,7 +5,7 @@ import {
   Typography,
   Box,
   TextField,
-  FormHelperText,
+  Button,
 } from "@mui/material";
 
 // components
@@ -81,6 +81,30 @@ const MyForm = () => {
     }
 
     console.log("Form is valid, proceed with calculation");
+  };
+
+  const handleReset = () => {
+    setFormData({
+      activityLevel: "",
+      goal: "",
+      activityType: "",
+      currentWeight: "",
+      gender: "",
+      level: "",
+    });
+
+    setFormDataErrors({
+      activityLevel: false,
+      goal: false,
+      activityType: false,
+      currentWeight: false,
+      gender: false,
+      level: false,
+    });
+    setCalorieRange(null);
+    setProteinRange(null);
+    setCarbRange(null);
+    setFatRange(null);
   };
 
   return (
@@ -159,6 +183,19 @@ const MyForm = () => {
                 setFatRange={setFatRange}
                 formData={formData}
               />
+              <Button
+                variant="outlined"
+                onClick={handleReset}
+                sx={{
+                  mt: 2,
+                  padding: 1.5,
+                  borderColor: "#fa4454",
+                  color: "#fa4454",
+                  fontSize: "1em",
+                }}
+              >
+                Reset
+              </Button>
             </Box>
           </Grid>
           <Results
