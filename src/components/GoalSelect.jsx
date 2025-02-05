@@ -4,7 +4,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Tooltip,
+  ListItemText,
   FormHelperText,
 } from "@mui/material";
 
@@ -24,9 +24,10 @@ const GoalSelect = ({ value, onChange, error }) => {
           Maintenance / Improve Health
         </MenuItem>
         <MenuItem value="gain-weight">
-          <Tooltip title="Gain Weight">
-            <span>Muscle Gain / Support Athletic Performance</span>
-          </Tooltip>
+          <ListItemText
+            primary="Muscle Gain / Support Athletic Performance"
+            secondary="Gain Weight"
+          />
         </MenuItem>
       </Select>
       {error && (
