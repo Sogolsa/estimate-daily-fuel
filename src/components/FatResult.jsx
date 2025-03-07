@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const FatResult = ({ fatRange, method }) => {
+const FatResult = ({ fatRange }) => {
   if (!fatRange || fatRange.lower === undefined || fatRange.upper === undefined)
     return null;
 
-  // const { lower, upper, method } = fatRange;
+  const { method } = fatRange;
 
   return (
     <Box
@@ -49,7 +49,7 @@ const FatResult = ({ fatRange, method }) => {
           mt: 1,
         }}
       >
-        {method === "calorie-based"
+        {method && method === "calorie-based"
           ? "(Based on calories, gender not selected.)"
           : "(Based on  activity level and current weight.)"}
       </Typography>

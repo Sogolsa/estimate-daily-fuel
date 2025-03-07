@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const CarbResult = ({ carbRange, method }) => {
+const CarbResult = ({ carbRange }) => {
+  const { method } = carbRange;
+
   if (
     !carbRange ||
     carbRange.lower === undefined ||
@@ -53,7 +55,7 @@ const CarbResult = ({ carbRange, method }) => {
       >
         {method === "calorie-based"
           ? "(Based on calories, gender not selected.)"
-          : "(Based on current weight and activity level.)"}
+          : "(Based on activity level and current weight.)"}
       </Typography>
     </Box>
   );
