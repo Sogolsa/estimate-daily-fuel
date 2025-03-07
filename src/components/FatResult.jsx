@@ -49,9 +49,10 @@ const FatResult = ({ fatRange }) => {
           mt: 1,
         }}
       >
+        {/* Based on activity level and current weight. */}
         {method && method === "calorie-based"
           ? "(Based on calories, gender not selected.)"
-          : "(Based on  activity level and current weight.)"}
+          : ""}
       </Typography>
     </Box>
   );

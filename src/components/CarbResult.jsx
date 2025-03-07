@@ -53,9 +53,10 @@ const CarbResult = ({ carbRange }) => {
           mt: 1,
         }}
       >
+        {/**based on protein and fat calories */}
         {method === "calorie-based"
           ? "(Based on calories, gender not selected.)"
-          : "(Based on activity level and current weight.)"}
+          : ""}
       </Typography>
     </Box>
   );
