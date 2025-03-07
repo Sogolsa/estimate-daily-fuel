@@ -1,9 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const FatResult = ({ fatRange }) => {
+const FatResult = ({ fatRange, method }) => {
   if (!fatRange || fatRange.lower === undefined || fatRange.upper === undefined)
     return null;
+
+  // const { lower, upper, method } = fatRange;
 
   return (
     <Box
@@ -37,6 +39,19 @@ const FatResult = ({ fatRange }) => {
         }}
       >
         {fatRange.lower} - {fatRange.upper} g
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          fontSize: { xs: "0.9em", sm: "1em" },
+          color: "gray",
+          textAlign: "center",
+          mt: 1,
+        }}
+      >
+        {method === "calorie-based"
+          ? "(Based on calories, gender not selected.)"
+          : "(Based on  activity level and current weight.)"}
       </Typography>
     </Box>
   );

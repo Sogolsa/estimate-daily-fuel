@@ -16,7 +16,9 @@ const LevelSelect = ({ value, onChange, error }) => {
         labelId="level-label"
         id="level"
         name="level"
-        onChange={onChange}
+        onChange={(e) =>
+          onChange({ target: { name: "level", value: e.target.value } })
+        }
         value={value}
       >
         <MenuItem value="beginner">

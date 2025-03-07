@@ -66,38 +66,89 @@ const CalculateButton = ({
       console.log(err.message);
     }
 
-    // calculate Fat
+    // Calculate Fat
     try {
-      if (formData.currentWeight) {
+      if (
+        formData.currentWeight &&
+        formData.activityLevel &&
+        formData.activityType &&
+        formData.goal
+      ) {
+        console.log("formData:", formData);
+        console.log("Activity Level:", formData.activityLevel);
+        console.log("Activity Type:", formData.activityType);
+
         const fatResult = calculateFat({
           activityLevel: formData.activityLevel,
+          goal: formData.goal,
           currentWeight: parseFloat(formData.currentWeight),
+          gender: formData.gender,
+          level: formData.level,
+          activityType: formData.activityType,
         });
+        console.log("fat result: ", fatResult);
         setFatRange(fatResult);
+        if (!formData.gender) {
+          const fatFromCaloriesResult = calculateFat({
+            activityType: formData.activityType,
+            currentWeight: parseFloat(formData.currentWeight),
+            activityLevel: formData.activityLevel,
+            goal: formData.goal,
+          });
+          setFatRange(fatFromCaloriesResult);
+        }
       } else {
         console.log("Skipping fat calculation due to missing inputs.");
       }
     } catch (err) {
-      console.log(err.message);
+      console.error("Error in fat calculation:", err.message);
     }
 
     // Calculate Carbs
     try {
-      if (formData.currentWeight && formData.activityType) {
+      if (
+        formData.currentWeight &&
+        formData.activityLevel &&
+        formData.activityType &&
+        formData.goal
+      ) {
+        console.log("formData:", formData);
+        console.log("Activity Level:", formData.activityLevel);
+        console.log("Activity Type:", formData.activityType);
+        console.log(
+          "Level Type:",
+          typeof formData.level,
+          "Value:",
+          formData.level
+        );
+
         const carbResult = calculateCarbohydrates({
-          activityType: formData.activityType,
-          currentWeight: parseFloat(formData.currentWeight),
           activityLevel: formData.activityLevel,
           goal: formData.goal,
+          currentWeight: parseFloat(formData.currentWeight),
+          gender: formData.gender,
+          level: formData.level,
+          activityType: formData.activityType,
         });
+
         setCarbRange(carbResult);
+        if (!formData.gender) {
+          const carbFromCaloriesResult = calculateCarbohydrates({
+            activityType: formData.activityType,
+            currentWeight: parseFloat(formData.currentWeight),
+            activityLevel: formData.activityLevel,
+            goal: formData.goal,
+          });
+          setCarbRange(carbFromCaloriesResult);
+        }
       } else {
-        console.log("Skipping carbohydrate calculation due to missing inputs.");
+        console.log("Skipping carb calculation due to missing inputs.");
       }
     } catch (err) {
-      console.log("Carb calculate error:", err.message);
+      console.error("Error in carbs calculation:", err.message);
     }
   };
+
   return (
     <Button
       type="submit"
